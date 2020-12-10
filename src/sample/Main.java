@@ -4,6 +4,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -192,6 +193,8 @@ public class Main extends Application {
         Button volver2 = new Button("Volver");
         rendirse.setMinSize(Button.USE_PREF_SIZE, Button.USE_PREF_SIZE);
         volver2.setMinSize(Button.USE_PREF_SIZE, Button.USE_PREF_SIZE);
+        AudioClip correctSound = new AudioClip("file:Correct.wav");
+        AudioClip incorrectSound = new AudioClip("file:Incorrect.wav");
 
         HBox hboxVolverRendirse = new HBox();
         hboxVolverRendirse.setPadding(new Insets(10, 10, 10, 10));
@@ -236,9 +239,11 @@ public class Main extends Application {
         responder.setOnAction((event)->{
             if (palabrasAEntrenar.getValue(prueba.getText()).contains(respuesta.getText())){
                 correcto.setText("CORRECTO!");
+                correctSound.play();
                 prueba.setText(palabrasAEntrenar.palabraRandom());
                 puntaje.sumarCorrecta();
             }else {
+                incorrectSound.play();
                 correcto.setText("Incorrecto :(\nProbá devuelta");
                 puntaje.sumarIncorrecta();
             }
